@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width, height=device-height" />
+    <link rel="stylesheet" type="text/css" href="https://js.cit.api.here.com/v3/3.0/mapsjs-ui.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://js.cit.api.here.com/v3/3.0/mapsjs-core.js"></script>
+    <script type="text/javascript" src="https://js.cit.api.here.com/v3/3.0/mapsjs-service.js"></script>
+    <script type="text/javascript" src="https://js.cit.api.here.com/v3/3.0/mapsjs-ui.js"></script>
+    <script type="text/javascript" src="https://js.cit.api.here.com/v3/3.0/mapsjs-mapevents.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Signika:300,400,700" />
+    <link rel="shortcut icon" 		type="image/x-icon"			href="img/favicon.ico"	/>
+    <link rel="apple-touch-icon" 	type="text/css" 			href="img/favicon.png"	/>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" type="text/css" href="./css/icons.css" />
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/animate.css">
+    <link rel="stylesheet" href="./css/routing_styles.css">
+    <link rel="stylesheet" href="./css/main_style.css">
+</head>
+<body>
+<div id="map"></div>
+<div id="panel"></div>
+
+
+<div class="popup_w" id="popup_thnx_alert_added" ><span class="btn_close_w"></span>
+    <div class="popup_header">
+        <sup class="x_icn_alerts"></sup>
+        <span>Congratulations!</span>
+    </div>
+    <div class="popup_body popup_thnx_text">
+        You successfully set up street cleaning alerts for
+        <br /> <br />
+        <div class="quote">
+            a27th Ave, San Francisco, Caddress. Xtreet will remind you to move your car.
+        </div>
+        Email alerts may not reach you if our ip is blocked by your firewall or message goes to spam folder. SMS alerts may not reach you if your device is off or service is not available, for example poor reception in a garage or a basement.
+    </div>
+    <div class="e_button">
+        <button class="stretch">Ok</button>
+    </div>
+</div>
+
+<div class="popup_w" id="popup_parking_info" ><span class="btn_close_w"></span>
+    <div class="popup_header">
+        <sup class="x_icn_parking_info"></sup>
+        <span>Get parking information</span>
+    </div>
+    <div class="e_button">
+        <button class="stretch">Tap on a map</button>
+    </div>
+    <div class="e_button">
+        <button class="stretch">Enter address </button>
+    </div>
+</div>
+
+<div class="popup_w" id="popup_address_not_found" ><span class="btn_close_w"></span>
+    <div class="popup_header">
+        <sup class="x_icn_no_address"></sup>
+        <span>Address not found</span>
+    </div>
+    <div class="popup_body popup_thnx_text">
+        Please enter valid San Francisco address.
+    </div>
+    <div class="e_button">
+        <button class="stretch">Ok</button>
+    </div>
+</div>
+
+<!-- ====================== POP-UP on marker ======================= -->
+<div class="popup_w popup_on_marker_box popup_on_marker_fixed" id="popup_on_marker" ><span class="btn_close_w"></span>
+    <div class="popup_header">
+        <sup class="x_icn_variable hicn_1"></sup>
+        <span>Wlaking</span>
+    </div>
+    <div class="popup_body">
+        <div class="situation_message padding_lr">
+            From.
+        </div>
+
+    </div>
+
+    <!--<div class="tabs">-->
+        <!--<ul class="marks">-->
+            <!--<li class="see_details_tab">-->
+                    <!--<span title="View monthly street cleaning schedule">-->
+                        <!--See details-->
+                    <!--</span>-->
+            <!--</li> &lt;!&ndash; or class 'active' &ndash;&gt;-->
+            <!--<li class="setup_alert_tab">-->
+                    <!--<span title="Set up street sweeping alerts to avoid parking tickets">-->
+                        <!--Set up alert-->
+                    <!--</span>-->
+            <!--</li>-->
+        <!--</ul>-->
+        <!--<ul class="tabs_contents scrollable">-->
+            <!--<li class="tab_see_details">-->
+                <!--<div class="tab_unlogged hide">-->
+                    <!--<a href="#">Log In</a> or <a href="#">Sign Uo</a> to see details-->
+                <!--</div>-->
+                <!--<div class="see_details_content">-->
+                    <!--<form class="form_style_1 select_time_form" action="">-->
+                        <!--<div>-->
+                            <!--<div>-->
+                                <!--<div class="custom_select_container">-->
+                                    <!--<select name="date" id="sc-date">-->
+                                        <!--<option value="TODAY">Today</option>-->
+                                        <!--<option value="2016-10-14">10/14</option>-->
+                                        <!--<option value="2016-10-15">10/15</option>-->
+                                        <!--<option value="2016-10-16">10/16</option>-->
+                                        <!--<option value="2016-10-17">10/17</option>-->
+                                        <!--<option value="2016-10-18">10/18</option>-->
+                                        <!--<option value="2016-10-19">10/19</option>-->
+                                        <!--<option value="2016-10-20">10/20</option>-->
+                                        <!--<option value="2016-10-21">10/21</option>-->
+                                        <!--<option value="2016-10-22">10/22</option>-->
+                                    <!--</select>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<div>-->
+                                <!--<div class="custom_select_container">-->
+                                    <!--<select name="time" id="sc-time">-->
+                                        <!--<option value="NOW">Current time</option>-->
+                                        <!--<option value="00:00">12:00am</option>-->
+                                        <!--<option value="01:00">01:00am</option>-->
+                                        <!--<option value="02:00">02:00am</option>-->
+                                        <!--<option value="03:00">03:00am</option>-->
+                                        <!--<option value="04:00">04:00am</option>-->
+                                        <!--<option value="05:00">05:00am</option>-->
+                                        <!--<option value="06:00">06:00am</option>-->
+                                        <!--<option value="07:00">07:00am</option>-->
+                                        <!--<option value="08:00">08:00am</option>-->
+                                        <!--<option value="09:00">09:00am</option>-->
+                                        <!--<option value="10:00">10:00am</option>-->
+                                        <!--<option value="11:00">11:00am</option>-->
+                                        <!--<option value="12:00">12:00pm</option>-->
+                                        <!--<option value="13:00">01:00pm</option>-->
+                                        <!--<option value="14:00">02:00pm</option>-->
+                                        <!--<option value="15:00">03:00pm</option>-->
+                                        <!--<option value="16:00">04:00pm</option>-->
+                                        <!--<option value="17:00">05:00pm</option>-->
+                                        <!--<option value="18:00">06:00pm</option>-->
+                                        <!--<option value="19:00">07:00pm</option>-->
+                                        <!--<option value="20:00">08:00pm</option>-->
+                                        <!--<option value="21:00">09:00pm</option>-->
+                                        <!--<option value="22:00">10:00pm</option>-->
+                                        <!--<option value="23:00">11:00pm</option>-->
+                                    <!--</select>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</form>-->
+                    <!--<div class="pib_blocks_group">-->
+                        <!--<div class="pib_risk_level">-->
+                            <!--<div class="pib_icn"></div>-->
+                            <!--<div class="pib_data">-->
+                                <!--<span>Risk level: Low</span>-->
+                            <!--</div>-->
+                            <!--<div class="pib_help">-->
+                                <!--<div>-->
+                                    <!--Shows risk of getting a ticket or being towed. High - no parking at this time, Medium - up to two hours, and Low - more than two hours, 72 hours maximum.-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="pib_safety_rank">-->
+                            <!--<div class="pib_icn"></div>-->
+                            <!--<div class="pib_data">-->
+                                <!--<span>Safety rank: High</span>-->
+                            <!--</div>-->
+                            <!--<div class="pib_help">-->
+                                <!--<div>-->
+                                    <!--Safety rank is calculated based on data related to crime involving vehicles like break ins, vandalism, and theft. Area with Safety rank: Low is unsafe to park at.-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="pib_blocks_group">-->
+                        <!--<div class="pib_street_cleaning">-->
+                            <!--<div class="pib_icn low"></div>-->
+                            <!--<div class="pib_data">-->
+                                    <!--<span>-->
+                                        <!--Next Street Cleaning at 10:00am 10/10/2016.-->
+                                    <!--</span>-->
+                            <!--</div>-->
+                            <!--<div class="pib_view_schedule_btn">-->
+                                <!--<span></span>-->
+                            <!--</div>-->
+                            <!--&lt;!&ndash; schedule content start &ndash;&gt;-->
+                            <!--<ul class="streetcleaning_calendar">-->
+                                <!--<div class="sc_calendar_head">-->
+                                    <!--<div class="sc_period_range">-->
+                                        <!--Street cleaning: 8am-10pm-->
+                                    <!--</div>-->
+                                    <!--<div class="sc_date"><sup></sup> <span>20 September</span></div>-->
+                                <!--</div>-->
+                                <!--<div class="sc_calendar_body">-->
+                                    <!--<div class="sc_calendar_week_number">-->
+                                        <!--<div></div>-->
+                                        <!--<div>1</div>-->
+                                        <!--<div>2</div>-->
+                                        <!--<div>3</div>-->
+                                        <!--<div>4</div>-->
+                                        <!--<div>5</div>-->
+                                        <!--<div></div>-->
+                                    <!--</div>-->
+                                    <!--<div class="sc_calendar">-->
+                                        <!--<div class="days">-->
+                                            <!--<div>Su</div>-->
+                                            <!--<div>Mo</div>-->
+                                            <!--<div>Tu</div>-->
+                                            <!--<div>We</div>-->
+                                            <!--<div>Th</div>-->
+                                            <!--<div>Fr</div>-->
+                                            <!--<div>Sa</div>-->
+                                        <!--</div>-->
+                                        <!--<div class="days_numbers">-->
+                                            <!--<div class="prev_month"><span>29</span></div>-->
+                                            <!--<div class="prev_month"><span>30</span></div>-->
+                                            <!--<div class="prev_month"><span>31</span></div>-->
+                                            <!--<div><span>1</span></div>-->
+                                            <!--<div><span>2</span></div>-->
+                                            <!--<div class="sc_yes" data-tooltip="Street cleaning: 8am-10pm"><span>3</span></div>-->
+                                            <!--<div><span>4</span></div>-->
+
+                                            <!--<div><span>5</span></div>-->
+                                            <!--<div><span>6</span></div>-->
+                                            <!--<div><span>7</span></div>-->
+                                            <!--<div><span>8</span></div>-->
+                                            <!--<div><span>9</span></div>-->
+                                            <!--<div><span>10</span></div>-->
+                                            <!--<div><span>11</span></div>-->
+
+                                            <!--<div><span>12</span></div>-->
+                                            <!--<div><span>13</span></div>-->
+                                            <!--<div><span>14</span></div>-->
+                                            <!--<div><span>15</span></div>-->
+                                            <!--<div><span>16</span></div>-->
+                                            <!--<div class="sc_yes" data-tooltip="Street cleaning: 9am-10pm"><span>17</span></div>-->
+                                            <!--<div><span>18</span></div>-->
+
+                                            <!--<div><span>19</span></div>-->
+                                            <!--<div><span>20</span></div>-->
+                                            <!--<div><span>21</span></div>-->
+                                            <!--<div><span>22</span></div>-->
+                                            <!--<div><span>23</span></div>-->
+                                            <!--<div><span>24</span></div>-->
+                                            <!--<div><span>25</span></div>-->
+
+                                            <!--<div><span>26</span></div>-->
+                                            <!--<div class="sc_today" data-tooltip="today"><span>27</span></div>-->
+                                            <!--<div><span>28</span></div>-->
+                                            <!--<div><span>29</span></div>-->
+                                            <!--<div><span>30</span></div>-->
+                                            <!--<div class="next_month"><span>1</span></div>-->
+                                            <!--<div class="next_month"><span>2</span></div>-->
+
+                                            <!--<div class="next_month"><span>3</span></div>-->
+                                            <!--<div class="next_month"><span>4</span></div>-->
+                                            <!--<div class="next_month"><span>5</span></div>-->
+                                            <!--<div class="next_month"><span>6</span></div>-->
+                                            <!--<div class="next_month"><span>7</span></div>-->
+                                            <!--<div class="next_month"><span>8</span></div>-->
+                                            <!--<div class="next_month"><span>9</span></div>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="sc_calendar_footer">-->
+                                    <!--<div class="sc_calendar_legend">Street cleaning</div>-->
+                                <!--</div>-->
+                            <!--</ul>-->
+                            <!--&lt;!&ndash; schedule content end &ndash;&gt;-->
+                            <!--<div class="pib_help">-->
+                                <!--<div>-->
+                                    <!--Displays next street cleaning date and time. See below for monthly street sweeping schedule. Set alerts to be notified ahead of next street cleaning event.-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="pib_tow_away">-->
+                            <!--<div class="pib_icn high"></div>-->
+                            <!--<div class="pib_data">-->
+                                    <!--<span>-->
+                                        <!--Next Tow Away at 11:00am 11/10/2016.-->
+                                    <!--</span>-->
+                            <!--</div>-->
+                            <!--<div class="pib_help">-->
+                                <!--<div>-->
+                                    <!--Displays known regularly scheduled tow-away zones.-->
+
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="pib_parking_time_limit">-->
+                            <!--<div class="pib_icn medium"></div>-->
+                            <!--<div class="pib_data">-->
+                                    <!--<span>-->
+                                        <!--Maximum parking 4h.-->
+                                    <!--</span>-->
+                            <!--</div>-->
+                            <!--<div class="pib_help">-->
+                                <!--<div>-->
+                                    <!--Displays known regularly scheduled tow-away zones.-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="pib_blocks_group hide">-->
+                        <!--<div class="pib_no_parking">-->
+                            <!--<div class="pib_icn high"></div>-->
+                            <!--<div class="pib_data">-->
+                                    <!--<span>-->
+                                        <!--No parking any time zone-->
+                                    <!--</span>-->
+                            <!--</div>-->
+                            <!--<div class="pib_help">-->
+                                <!--<div>-->
+                                    <!--No parking any time-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</li>-->
+            <!--<li class="tab_setup_alert">-->
+                <!--<div class="tab_unlogged hide">-->
+                    <!--<a href="#">Log In</a> or <a href="#">Sign Uo</a> to set up alert-->
+                <!--</div>-->
+                <!--<div class="setup_alert_content">-->
+                    <!--<form class="form_style_1 setup_alerts_form" action="">-->
+                        <!--<div>-->
+                            <!--<div class="alert_on_email">-->
+                                <!--<div class="custom_select_container">-->
+                                    <!--<select name="date" id="alert_email_time">-->
+                                        <!--<option value="48h">48h</option>-->
+                                        <!--<option value="24h">24h</option>-->
+                                        <!--<option value="12h" selected>12h</option>-->
+                                        <!--<option value="11h">11h</option>-->
+                                        <!--<option value="10h">10h</option>-->
+                                        <!--<option value="9h">9h</option>-->
+                                        <!--<option value="8h">8h</option>-->
+                                        <!--<option value="7h">7h</option>-->
+                                        <!--<option value="6h">6h</option>-->
+                                        <!--<option value="5h">5h</option>-->
+                                        <!--<option value="4h">4h</option>-->
+                                        <!--<option value="3h">3h</option>-->
+                                        <!--<option value="2h">2h</option>-->
+                                        <!--<option value="1h">1h</option>-->
+                                        <!--<option value="off">off</option>-->
+                                    <!--</select>-->
+                                <!--</div>-->
+                                <!--<div class="alert_type_label">-->
+                                    <!--username@email.com-->
+                                <!--</div>-->
+                            <!--</div>-->
+
+                            <!--<div class="alert_on_phone hide">-->
+                                <!--<div class="custom_select_container">-->
+                                    <!--<select name="time" id="alert_phone_time">-->
+                                        <!--<option value="48h">48h</option>-->
+                                        <!--<option value="24h">24h</option>-->
+                                        <!--<option value="12h" selected>12h</option>-->
+                                        <!--<option value="11h">11h</option>-->
+                                        <!--<option value="10h">10h</option>-->
+                                        <!--<option value="9h">9h</option>-->
+                                        <!--<option value="8h">8h</option>-->
+                                        <!--<option value="7h">7h</option>-->
+                                        <!--<option value="6h">6h</option>-->
+                                        <!--<option value="5h">5h</option>-->
+                                        <!--<option value="4h">4h</option>-->
+                                        <!--<option value="3h">3h</option>-->
+                                        <!--<option value="2h">2h</option>-->
+                                        <!--<option value="1h">1h</option>-->
+                                        <!--<option value="off">off</option>-->
+                                    <!--</select>-->
+                                <!--</div>-->
+                                <!--<div class="alert_type_label">-->
+                                    <!--1-855-557-5100-->
+                                <!--</div>-->
+                            <!--</div>-->
+
+                            <!--<div class="not_phone">-->
+                                <!--<a href="/userpreferences#phone" target="_blank">Add phone</a>-->
+                                <!--<div class="pib_help">-->
+                                    <!--<div>-->
+                                        <!--Add phone number to get text messages.-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div>-->
+                            <!--<button>-->
+                                <!--Submit-->
+                            <!--</button>-->
+                        <!--</div>-->
+                        <!--<hr />-->
+                        <!--<div class="ta_c popup_footer_box user_preferences_link">-->
+                            <!--<a href="#" title="User preferences" >-->
+                                <!--User preferences-->
+                            <!--</a>-->
+                        <!--</div>-->
+                    <!--</form>-->
+                <!--</div>-->
+            <!--</li>-->
+        <!--</ul>-->
+    <!--</div>-->
+</div>
+
+<!-- ======================== TESTER ========================== -->
+<div class="tester">
+    <div>
+        <div class="hn4">
+            <div>Pop-up Tester</div>
+        </div>
+        <div class="hn6">
+            <div>Pop-ups</div>
+        </div>
+        <span class="popup_thnx_alert_added">Alert Added</span>
+        <span class="popup_parking_info">Parking info</span>
+        <span class="popup_address_not_found">Address not found</span>
+
+        <div class="hn6">
+            <div>Marker pop-ups</div>
+        </div>
+        <span class="popup_on_marker">
+                popup_on_marker
+            </span>
+
+    </div>
+</div>
+<!-- =====================HEADER====================== -->
+<header class="main_header">
+    <div class="logo">
+        <a href="/"></a>
+    </div>
+    <div class="btn_mobile_search"></div>
+    <div class="header_search_elements">
+        <form class="form_style_1 header_search_box">
+            <div class="btn_geolocation">
+                <button type="button" class="btn_find_me icn_btn"></button>
+            </div>
+            <div class="search_box_container">
+                <div class="search_box">
+                    <input type="search" placeholder="Search by address" />
+                    <button class="btn_search" type="submit"></button>
+                    <button class="btn_neighborhoods icn_btn" type="button"></button>
+                </div>
+            </div>
+        </form>
+        <ul class="neighborhoods_find_list">
+            <li data-nbh="Anza Vista">Anza Vista</li>
+            <li data-nbh="Balboa Terrace">Balboa Terrace</li>
+            <li data-nbh="Bayview">Bayview</li>
+            <li data-nbh="Bernal Heights">Bernal Heights</li>
+            <li data-nbh="Buena Vista Park/Ashbury Heights">Buena Vista Park/Ashbury Heights</li>
+            <li data-nbh="Central Richmond">Central Richmond</li>
+            <li data-nbh="1548 28th Ave, San Francisco, CA 94122, USA">Central Sunset</li>
+            <li data-nbh="5 Clarendon Ave, San Francisco, CA 94114, USA">Clarendon Heights</li>
+            <li data-nbh="Corona Heights">Corona Heights</li>
+            <li data-nbh="Cow Hollow">Cow Hollow</li>
+            <li data-nbh="Crocker Amazon">Crocker Amazon</li>
+            <li data-nbh="Diamond Heights">Diamond Heights</li>
+            <li data-nbh="704 Sutter St, San Francisco, CA 94109, USA">Downtown</li>
+            <li data-nbh="Duboce Triangle">Duboce Triangle</li>
+            <li data-nbh="Dolores Heights">Eureka Valley/Dolores Heights</li>
+            <li data-nbh="Excelsior">Excelsior</li>
+            <li data-nbh="Financial District/Barbary Coast">Financial District/Barbary Coast</li>
+            <li data-nbh="676 Howard St, San Francisco, CA 94105, USA">Yerba Buena</li>
+            <li data-nbh="Forest Hill">Forest Hill</li>
+            <li data-nbh="Forest Hills Extension">Forest Hills Extension</li>
+            <li data-nbh="Forest Knolls">Forest Knolls</li>
+            <li data-nbh="Glen Park">Glen Park</li>
+            <li data-nbh="Golden Gate Heights">Golden Gate Heights</li>
+            <li data-nbh="Golden Gate Park">Golden Gate Park</li>
+            <li data-nbh="Haight Ashbury">Haight Ashbury</li>
+            <li data-nbh="Hayes Valley">Hayes Valley</li>
+            <li data-nbh="Hunters Point">Hunters Point</li>
+            <li data-nbh="Ingleside">Ingleside</li>
+            <li data-nbh="Ingleside Heights">Ingleside Heights</li>
+            <li data-nbh="Ingleside Terrace">Ingleside Terrace</li>
+            <li data-nbh="2341 Folsom St, San Francisco, CA 94110, USA">Inner Mission</li>
+            <li data-nbh="Inner Parkside">Inner Parkside</li>
+            <li data-nbh="Inner Richmond">Inner Richmond</li>
+            <li data-nbh="Inner Sunset">Inner Sunset</li>
+            <li data-nbh="Jordan Park/Laurel Heights">Jordan Park/Laurel Heights</li>
+            <li data-nbh="Lake Street">Lake Street</li>
+            <li data-nbh="Lake Shore">Lake Shore</li>
+            <li data-nbh="Lakeside">Lakeside</li>
+            <li data-nbh="Lone Mountain">Lone Mountain</li>
+            <li data-nbh="Lower Pacific Heights">Lower Pacific Heights</li>
+            <li data-nbh="Marina">Marina</li>
+            <li data-nbh="Merced Heights">Merced Heights</li>
+            <li data-nbh="Merced Manor">Merced Manor</li>
+            <li data-nbh="Midtown Terrace">Midtown Terrace</li>
+            <li data-nbh="37 Sequoia Way, San Francisco, CA, United States">Miraloma Park</li>
+            <li data-nbh="Mission Bay">Mission Bay</li>
+            <li data-nbh="Mission Dolores">Mission Dolores</li>
+            <li data-nbh="Mission Terrace">Mission Terrace</li>
+            <li data-nbh="Monterey Heights">Monterey Heights</li>
+            <li data-nbh="Mount Davidson Manor">Mount Davidson Manor</li>
+            <li data-nbh="Noe Valley">Noe Valley</li>
+            <li data-nbh="695 Greenwich St, San Francisco, CA 94133, USA">North Beach</li>
+            <li data-nbh="1567 Fulton St, San Francisco, CA 94117, USA">North Panhandle</li>
+            <li data-nbh="North Waterfront">North Waterfront</li>
+            <li data-nbh="Oceanview">Oceanview</li>
+            <li data-nbh="Outer Mission">Outer Mission</li>
+            <li data-nbh="2300 43rd Ave, San Francisco, CA 94116, USA">Outer Parkside</li>
+            <li data-nbh="Outer Richmond">Outer Richmond</li>
+            <li data-nbh="Outer Sunset">Outer Sunset</li>
+            <li data-nbh="Pacific Heights">Pacific Heights</li>
+            <li data-nbh="Parkside">Parkside</li>
+            <li data-nbh="Cole Valley/Parnassus Heights">Cole Valley/Parnassus Heights</li>
+            <li data-nbh="Pine Lake Park">Pine Lake Park</li>
+            <li data-nbh="Portola">Portola</li>
+            <li data-nbh="Potrero Hill">Potrero Hill</li>
+            <li data-nbh="Presidio Heights">Presidio Heights</li>
+            <li data-nbh="Russian Hill">Russian Hill</li>
+            <li data-nbh="Saint Francis Wood">Saint Francis Wood</li>
+            <li data-nbh="Sea Cliff">Sea Cliff</li>
+            <li data-nbh="Silver Terrace">Silver Terrace</li>
+            <li data-nbh="South Beach">South Beach</li>
+            <li data-nbh="South of Market">South of Market</li>
+            <li data-nbh="Stonestown">Stonestown</li>
+            <li data-nbh="Sunnyside">Sunnyside</li>
+            <li data-nbh="Telegraph Hill">Telegraph Hill</li>
+            <li data-nbh="140 Gardenside Dr, San Francisco, CA 94131, USA">Twin Peaks</li>
+            <li data-nbh="Van Ness/Civic Center">Van Ness/Civic Center</li>
+            <li data-nbh="Visitacion Valley">Visitacion Valley</li>
+            <li data-nbh="West Portal">West Portal</li>
+            <li data-nbh="Western Addition">Western Addition</li>
+            <li data-nbh="Westwood Highlands">Westwood Highlands</li>
+            <li data-nbh="Westwood Park">Westwood Park</li>
+            <li data-nbh="Lincoln Park, San Francisco, CA, United States">Lincoln Park</li>
+            <li data-nbh="Sherwood Forest">Sherwood Forest</li>
+            <li data-nbh="Tenderloin">Tenderloin</li>
+            <li data-nbh="Central Waterfront/Dogpatch">Central Waterfront/Dogpatch</li>
+            <li data-nbh="Candlestick Point">Candlestick Point</li>
+            <li data-nbh="Bayview Heights">Bayview Heights</li>
+            <li data-nbh="Little Hollywood">Little Hollywood</li>
+            <li data-nbh="Nob Hill">Nob Hill</li>
+            <li data-nbh="Hunters Point">Hunters Point</li>
+        </ul>
+    </div>
+    <div class="btn_menu"></div>
+
+    <div class="user_status_container logged"><!-- if user logged - add class 'logged' -->
+        <div class="header_mobile_user_btn"></div>
+        <div class="logged_or_not">
+            <div class="logged_user_header_block">
+                <div>
+                    <a href="/userpreferences" id="user_status_container_user_name" class="logged_user_name">Alexander Rachinsky</a><button class="logout_h_btn">Log Out</button>
+                </div>
+            </div>
+            <div class="login_header_block">
+                <div>
+                    <span class="icn_btn login_form_btn">Log in</span><sup>or</sup><span class="signup_form_btn">Sign up</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!--=====================FOOTER -->
+<footer class="main_footer">
+    <div class="resolution">
+        <div class="center_container">
+            <ul class="copyright">
+                <li><a href="#">&copy; Xtreet 2017</a></li>
+                <li><a href="#">Disclamer</a></li>
+                <li><a href="#">Contacts</a></li>
+            </ul>
+            <ul class="socicons">
+                <li><a class="x_icn_soc_twitter" href="#"></a></li>
+                <li><a class="x_icn_soc_facebook" href="#"></a></li>
+                <li><a class="x_icn_soc_google_plus" href="#"></a></li>
+                <li><a class="x_icn_soc_bbb" href="#"></a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+
+
+<script src="src/pop_up.js"></script>
+<script src="src/maps_view.js"></script>
+<script src="src/markers.js"></script>
+<script src="src/taps_mark.js"></script>
+<script src="src/routing.js"></script>
+<script src="src/get_coords.js"></script>
+<!--<script src="bundle.js"></script>-->
+
+</body>
+</html>

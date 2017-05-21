@@ -1,0 +1,195 @@
+@font-face {
+  font-family: 'xtreet_icns';
+  src:  url('../fonts/xtreet_icns.eot?co5k99');
+  src:  url('../fonts/xtreet_icns.eot?co5k99#iefix') format('embedded-opentype'),
+    url('../fonts/xtreet_icns.ttf?co5k99') format('truetype'),
+    url('../fonts/xtreet_icns.woff?co5k99') format('woff'),
+    url('../fonts/xtreet_icns.svg?co5k99#xtreet_icns') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="x_"], [class*=" x_"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'xtreet_icns' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.x_icn_alerts:before {
+  content: "\e900";
+}
+.x_icn_arrow_down:before {
+  content: "\e901";
+}
+.x_icn_arrow_left:before {
+  content: "\e902";
+}
+.x_icn_arrow_right:before {
+  content: "\e903";
+}
+.x_icn_arrow_up:before {
+  content: "\e904";
+}
+.x_icn_bike_parking:before {
+  content: "\e905";
+}
+.x_icn_calendar:before {
+  content: "\e906";
+}
+.x_icn_chbox_a:before {
+  content: "\e907";
+}
+.x_icn_chbox_i:before {
+  content: "\e908";
+}
+.x_icn_close:before {
+  content: "\e909";
+}
+.x_icn_dot:before {
+  content: "\e90a";
+}
+.x_icn_edit:before {
+  content: "\e90b";
+}
+.x_icn_info:before {
+  content: "\e90c";
+}
+.x_icn_iphone:before {
+  content: "\e90d";
+}
+.x_icn_list:before {
+  content: "\e90e";
+}
+.x_icn_load:before {
+  content: "\e90f";
+}
+.x_icn_location:before {
+  content: "\e910";
+}
+.x_icn_loupe:before {
+  content: "\e911";
+}
+.x_icn_mail:before {
+  content: "\e912";
+}
+.x_icn_marker:before {
+  content: "\e913";
+}
+.x_icn_menu:before {
+  content: "\e914";
+}
+.x_icn_message:before {
+  content: "\e915";
+}
+.x_icn_minus:before {
+  content: "\e916";
+}
+.x_icn_neighborhoods:before {
+  content: "\e917";
+}
+.x_icn_no_address:before {
+  content: "\e918";
+}
+.x_icn_no_parking:before {
+  content: "\e919";
+}
+.x_icn_nopay:before {
+  content: "\e91a";
+}
+.x_icn_parking:before {
+  content: "\e91b";
+}
+.x_icn_parking_info:before {
+  content: "\e91c";
+}
+.x_icn_picture:before {
+  content: "\e91d";
+}
+.x_icn_plus:before {
+  content: "\e91e";
+}
+.x_icn_radiobtn_a:before {
+  content: "\e91f";
+}
+.x_icn_radiobtn_i:before {
+  content: "\e920";
+}
+.x_icn_ready:before {
+  content: "\e921";
+}
+.x_icn_risk_level:before {
+  content: "\e922";
+}
+.x_icn_safety_rank:before {
+  content: "\e923";
+}
+.x_icn_soc_bbb:before {
+  content: "\e924";
+}
+.x_icn_soc_bbb_2:before {
+  content: "\e925";
+}
+.x_icn_soc_facebook:before {
+  content: "\e926";
+}
+.x_icn_soc_google_plus:before {
+  content: "\e927";
+}
+.x_icn_soc_twitter:before {
+  content: "\e928";
+}
+.x_icn_street_cleaning:before {
+  content: "\e929";
+}
+.x_icn_street_cleaning2:before {
+  content: "\e92a";
+}
+.x_icn_telephone:before {
+  content: "\e92b";
+}
+.x_icn_time:before {
+  content: "\e92c";
+}
+.x_icn_tow_away:before {
+  content: "\e92d";
+}
+.x_icn_user_hi:before {
+  content: "\e92e";
+}
+.x_icn_user_login:before {
+  content: "\e92f";
+}
+.x_icn_user_n:before {
+  content: "\e930";
+}
+.x_icn_user_pass:before {
+  content: "\e931";
+}
+.x_icns_handicap:before {
+  content: "\e932";
+}
+.x_icns_parking_meter:before {
+  content: "\e933";
+}
+.x_icns_reliability:before {
+  content: "\e934";
+}
+.x_icns_rocket:before {
+  content: "\e935";
+}
+.x_icns_simply:before {
+  content: "\e936";
+}
+.x_icns_wifi:before {
+  content: "\e937";
+}
+

@@ -1,0 +1,11 @@
+{
+  "name": "maks",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack src/routing"
+  },
+  "author": "",
+  "license": "ISC"
+}
