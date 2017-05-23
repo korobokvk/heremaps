@@ -24,15 +24,16 @@ function calculateRouteFromAtoB (platform, waypoint1) {
  */
 function onSuccess(result) {
     var route = result.response.route[0];
+    console.log(result.response);
 
-    console.log(result)
+
     /*
      * The styling of the route response on the map is entirely under the developer's control.
      * A representitive styling can be found the full JS + HTML code of this example
      * in the functions below:
      */
+
     addRouteShapeToMap(route);
-    addManueversToMap(route);
 
     addWaypointsToPanel(route.waypoint);
     addManueversToPanel(route);
@@ -73,6 +74,7 @@ function openBubble(position, text){
  * Creates a H.map.Polyline from the shape of the route and adds it to the map.
  * @param {Object} route A route as received from the H.service.RoutingService
  */
+var poly;
 function addRouteShapeToMap(route){
     var strip = new H.geo.Strip(),
         routeShape = route.shape,
@@ -94,6 +96,10 @@ function addRouteShapeToMap(route){
 
     // And zoom to its bounding rectangle
     map.setViewBounds(polyline.getBounds(), true);
+   poly = polyline;
+}
+function removePolyLine() {
+    map.removeObject(poly);
 }
 
 
@@ -121,50 +127,7 @@ function addWaypointsToPanel(waypoints){
 }
 
 
-/**
- * Creates a series of H.map.Marker points from the route and adds them to the map.
- * @param {Object} route  A route as received from the H.service.RoutingService
- */
-// function addManueversToMap(route){
-//     var svgMarkup = '<svg width="18" height="18" ' +
-//             'xmlns="http://www.w3.org/2000/svg">' +
-//             '<circle cx="8" cy="8" r="8" ' +
-//             'fill="#1b468d" stroke="white" stroke-width="1"  />' +
-//             '</svg>',
-//         dotIcon = new H.map.Icon(svgMarkup, {anchor: {x:8, y:8}}),
-//         group = new  H.map.Group(),
-//         i,
-//         j;
-//
-//     // Add a marker for each maneuver
-//     for (i = 0;  i < route.leg.length; i += 1) {
-//         for (j = 0;  j < route.leg[i].maneuver.length; j += 1) {
-//             // Get the next maneuver.
-//             maneuver = route.leg[i].maneuver[j];
-//             // Add a marker to the maneuvers group
-//             var marker =  new H.map.Marker({
-//                     lat: maneuver.position.latitude,
-//                     lng: maneuver.position.longitude} ,
-//                 {icon: dotIcon});
-//             marker.instruction = maneuver.instruction;
-//             group.addObject(marker);
-//         }
-//     }
-//
-//     group.addEventListener('tap', function (evt) {
-//         if(document.getElementsByClassName('direction')) {
-//             evt.remove()
-//         } else {
-//             map.setCenter(evt.target.getPosition());
-//             openBubble(
-//                 evt.target.getPosition(), evt.target.instruction);
-//         }
-//
-//     }, false);
-//
-//     // Add the maneuvers group to the map
-//     map.addObject(group);
-// }
+
 
 /**
  * Creates a series of H.map.Marker points from the route and adds them to the map.
@@ -228,6 +191,5 @@ Number.prototype.toMMSS = function () {
     return  Math.floor(this / 60)  +' minutes '+ (this % 60)  + ' seconds.';
 };
 
-// Now use the map as required...
-calculateRouteFromAtoB (platform);
+
 

@@ -1,4 +1,5 @@
 var tic = 0;
+
 function setUpClickListener(map) {
     // Attach an event listener to map display
     // obtain the coordinates and display in an alert box.
@@ -8,11 +9,14 @@ function setUpClickListener(map) {
             evt.currentPointer.viewportY);
         var waypoint0 = coord.lat.toFixed(4) + ',' + coord.lng.toFixed(4);
         if(tic > 0) {
-            evt.preventDefault()
+            removeMarkers();
+            removePolyLine();
+            tic = 0
         } else {
-            console.log(waypoint0);
-            calculateRouteFromAtoB(platform, waypoint0)
+
+            calculateRouteFromAtoB(platform, waypoint0);
             orderMarkers(coord.lat.toFixed(4), coord.lng.toFixed(4));
+
             tic++;
         }
     });

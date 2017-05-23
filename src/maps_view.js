@@ -9,8 +9,8 @@ function moveMapToBerlin(map){
 
 //Step 1: initialize communication with the platform
 var platform = new H.service.Platform({
-    app_id: 'DemoAppId01082013GAL',
-    app_code: 'AJKnXv84fjrb0KIHawS0Tg',
+    app_id: 'e7ofwHOWmAV2s8KnY4Xi',
+    app_code: 'cJXpDGMrI0ssliwAJ-drRA',
     useCIT: true,
     useHTTPS: true
 });
@@ -29,4 +29,6 @@ var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
 var ui = H.ui.UI.createDefault(map, defaultLayers);
 
 // Now use the map as required...
+
 moveMapToBerlin(map);
+
