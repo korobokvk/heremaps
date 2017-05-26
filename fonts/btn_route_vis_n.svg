@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW X8 -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="120px" height="120px" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 794 794"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str0 {stroke:#547491;stroke-width:79.3693}
+    .fil0 {fill:none}
+    .fil1 {fill:#547491}
+   ]]>
+  </style>
+   <clipPath id="id0">
+    <path d="M0 0l794 0 0 794 -794 0 0 -794z"/>
+   </clipPath>
+ </defs>
+ <g id="Слой_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <g>
+  </g>
+  <g style="clip-path:url(#id0)">
+   <g>
+    <line class="fil0 str0" x1="283" y1="268" x2="283" y2= "623" />
+    <polygon class="fil1" points="185,323 283,171 381,323 "/>
+    <path class="fil0 str0" d="M497 424c-152,1 -212,47 -214,199"/>
+    <polygon class="fil1" points="456,326 608,424 456,522 "/>
+   </g>
+  </g>
+  <polygon class="fil0" points="0,0 794,0 794,794 0,794 "/>
+ </g>
+</svg>

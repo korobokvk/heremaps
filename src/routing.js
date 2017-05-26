@@ -2,12 +2,14 @@ var bubble;
 function calculateRouteFromAtoB (platform, waypoint1) {
     var router = platform.getRoutingService(),
         routeRequestParams = {
-            mode: 'shortest;pedestrian',
+            mode: 'fastest;pedestrian',
+            alternatives: '1',
             representation: 'display',
-            routeattributes : 'waypoints,summary,shape,legs',
-            maneuverattributes: 'direction,action',
             waypoint0: '37.5739,-122.3593',
-            waypoint1: waypoint1
+            waypoint1: waypoint1,
+            routeattributes: 'waypoints,summary,shape,legs',
+            maneuverattributes: 'direction,action'
+
         };
 
         router.calculateRoute(
@@ -23,8 +25,8 @@ function calculateRouteFromAtoB (platform, waypoint1) {
  * see: http://developer.here.com/rest-apis/documentation/routing/topics/resource-type-calculate-route.html
  */
 function onSuccess(result) {
-    var route = result.response.route[0];
-    console.log(result.response);
+    var route = result.response.route;
+    console.log(result);
 
 
     /*
@@ -32,12 +34,12 @@ function onSuccess(result) {
      * A representitive styling can be found the full JS + HTML code of this example
      * in the functions below:
      */
-
     addRouteShapeToMap(route);
 
-    addWaypointsToPanel(route.waypoint);
-    addManueversToPanel(route);
-    addSummaryToPanel(route.summary);
+
+
+
+
 
     // ... etc.
 
@@ -75,17 +77,26 @@ function openBubble(position, text){
  * @param {Object} route A route as received from the H.service.RoutingService
  */
 var poly;
-function addRouteShapeToMap(route){
-    var strip = new H.geo.Strip(),
-        routeShape = route.shape,
-        polyline;
+function addRouteShapeToMap(routing){
+    var route = routing;
+    console.log(route.length);
+    var strip = new H.geo.Strip();
+    var routeShape;
+    for(var i = 0; i < route.length; i++) {
 
-    routeShape.forEach(function(point) {
-        var parts = point.split(',');
-        strip.pushLatLngAlt(parts[0], parts[1]);
-    });
+        addSummaryToPanel(route[i].summary);
+        addManueversToPanel(route[i]);
+        addWaypointsToPanel(route[i].waypoint);
+        routeShape = route[i].shape;
+        routeShape.forEach(function(point) {
+            var parts = point.split(',');
+            strip.pushLatLngAlt(parts[0], parts[1]);
+        });
 
-    polyline = new H.map.Polyline(strip, {
+    }
+
+
+    var polyline = new H.map.Polyline(strip, {
         style: {
             lineWidth: 4,
             strokeColor: 'rgba(0, 128, 255, 0.7)'
@@ -109,7 +120,8 @@ function removePolyLine() {
  */
 function addWaypointsToPanel(waypoints){
 
-
+    var fromElem = document.getElementById("from");
+    var toElem = document.getElementById('to');
 
     var nodeH3 = document.createElement('h3'),
         waypointLabels = [],
@@ -121,7 +133,8 @@ function addWaypointsToPanel(waypoints){
     }
 
     nodeH3.textContent = waypointLabels.join(' - ');
-
+    fromElem.textContent = waypointLabels[0];
+    toElem.textContent = waypointLabels[1];
     routeInstructionsContainer.innerHTML = '';
     routeInstructionsContainer.appendChild(nodeH3);
 }

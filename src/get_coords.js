@@ -13,10 +13,9 @@ function setUpClickListener(map) {
             removePolyLine();
             tic = 0
         } else {
-
+            $("#popup_on_marker").addClass("active");
             calculateRouteFromAtoB(platform, waypoint0);
             orderMarkers(coord.lat.toFixed(4), coord.lng.toFixed(4));
-
             tic++;
         }
     });

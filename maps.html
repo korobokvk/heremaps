@@ -21,7 +21,7 @@
 <body>
 <div id="map"></div>
 <div id="panel"></div>
-<div id="suggestions"></div>
+
 
 
 <div class="popup_w" id="popup_thnx_alert_added" ><span class="btn_close_w"></span>
@@ -76,333 +76,32 @@
     </div>
     <div class="popup_body">
         <div class="situation_message padding_lr">
-            From.
+            <div id="fromBlock">
+                <span id="upperFrom">From:</span>
+                <h1 id="from"></h1>
+                <hr id="hrFrom">
+            </div>
+            <div id="toBlock">
+                <span id="upperTo">To:</span>
+                <h1 id="to"></h1>
+                <hr id="hrTo">
+            </div>
+
+
+        </div>
+        <div id="walkinBlock"><h1 id="walkingRoutes">Walking Routes</h1></div>
+        <div id="altBlock">
+            <sup class="x_icn_variable hicn_15 walkingMan"></sup>
+            <div id="altRouteBlock">
+                <span class="altRoute">via US-101</span>
+                <h1 class="altRouteH1">25 km</h1>
+            </div>
+            <hr id="hrAlt">
         </div>
 
     </div>
 
-    <!--<div class="tabs">-->
-        <!--<ul class="marks">-->
-            <!--<li class="see_details_tab">-->
-                    <!--<span title="View monthly street cleaning schedule">-->
-                        <!--See details-->
-                    <!--</span>-->
-            <!--</li> &lt;!&ndash; or class 'active' &ndash;&gt;-->
-            <!--<li class="setup_alert_tab">-->
-                    <!--<span title="Set up street sweeping alerts to avoid parking tickets">-->
-                        <!--Set up alert-->
-                    <!--</span>-->
-            <!--</li>-->
-        <!--</ul>-->
-        <!--<ul class="tabs_contents scrollable">-->
-            <!--<li class="tab_see_details">-->
-                <!--<div class="tab_unlogged hide">-->
-                    <!--<a href="#">Log In</a> or <a href="#">Sign Uo</a> to see details-->
-                <!--</div>-->
-                <!--<div class="see_details_content">-->
-                    <!--<form class="form_style_1 select_time_form" action="">-->
-                        <!--<div>-->
-                            <!--<div>-->
-                                <!--<div class="custom_select_container">-->
-                                    <!--<select name="date" id="sc-date">-->
-                                        <!--<option value="TODAY">Today</option>-->
-                                        <!--<option value="2016-10-14">10/14</option>-->
-                                        <!--<option value="2016-10-15">10/15</option>-->
-                                        <!--<option value="2016-10-16">10/16</option>-->
-                                        <!--<option value="2016-10-17">10/17</option>-->
-                                        <!--<option value="2016-10-18">10/18</option>-->
-                                        <!--<option value="2016-10-19">10/19</option>-->
-                                        <!--<option value="2016-10-20">10/20</option>-->
-                                        <!--<option value="2016-10-21">10/21</option>-->
-                                        <!--<option value="2016-10-22">10/22</option>-->
-                                    <!--</select>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                            <!--<div>-->
-                                <!--<div class="custom_select_container">-->
-                                    <!--<select name="time" id="sc-time">-->
-                                        <!--<option value="NOW">Current time</option>-->
-                                        <!--<option value="00:00">12:00am</option>-->
-                                        <!--<option value="01:00">01:00am</option>-->
-                                        <!--<option value="02:00">02:00am</option>-->
-                                        <!--<option value="03:00">03:00am</option>-->
-                                        <!--<option value="04:00">04:00am</option>-->
-                                        <!--<option value="05:00">05:00am</option>-->
-                                        <!--<option value="06:00">06:00am</option>-->
-                                        <!--<option value="07:00">07:00am</option>-->
-                                        <!--<option value="08:00">08:00am</option>-->
-                                        <!--<option value="09:00">09:00am</option>-->
-                                        <!--<option value="10:00">10:00am</option>-->
-                                        <!--<option value="11:00">11:00am</option>-->
-                                        <!--<option value="12:00">12:00pm</option>-->
-                                        <!--<option value="13:00">01:00pm</option>-->
-                                        <!--<option value="14:00">02:00pm</option>-->
-                                        <!--<option value="15:00">03:00pm</option>-->
-                                        <!--<option value="16:00">04:00pm</option>-->
-                                        <!--<option value="17:00">05:00pm</option>-->
-                                        <!--<option value="18:00">06:00pm</option>-->
-                                        <!--<option value="19:00">07:00pm</option>-->
-                                        <!--<option value="20:00">08:00pm</option>-->
-                                        <!--<option value="21:00">09:00pm</option>-->
-                                        <!--<option value="22:00">10:00pm</option>-->
-                                        <!--<option value="23:00">11:00pm</option>-->
-                                    <!--</select>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</form>-->
-                    <!--<div class="pib_blocks_group">-->
-                        <!--<div class="pib_risk_level">-->
-                            <!--<div class="pib_icn"></div>-->
-                            <!--<div class="pib_data">-->
-                                <!--<span>Risk level: Low</span>-->
-                            <!--</div>-->
-                            <!--<div class="pib_help">-->
-                                <!--<div>-->
-                                    <!--Shows risk of getting a ticket or being towed. High - no parking at this time, Medium - up to two hours, and Low - more than two hours, 72 hours maximum.-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="pib_safety_rank">-->
-                            <!--<div class="pib_icn"></div>-->
-                            <!--<div class="pib_data">-->
-                                <!--<span>Safety rank: High</span>-->
-                            <!--</div>-->
-                            <!--<div class="pib_help">-->
-                                <!--<div>-->
-                                    <!--Safety rank is calculated based on data related to crime involving vehicles like break ins, vandalism, and theft. Area with Safety rank: Low is unsafe to park at.-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--<div class="pib_blocks_group">-->
-                        <!--<div class="pib_street_cleaning">-->
-                            <!--<div class="pib_icn low"></div>-->
-                            <!--<div class="pib_data">-->
-                                    <!--<span>-->
-                                        <!--Next Street Cleaning at 10:00am 10/10/2016.-->
-                                    <!--</span>-->
-                            <!--</div>-->
-                            <!--<div class="pib_view_schedule_btn">-->
-                                <!--<span></span>-->
-                            <!--</div>-->
-                            <!--&lt;!&ndash; schedule content start &ndash;&gt;-->
-                            <!--<ul class="streetcleaning_calendar">-->
-                                <!--<div class="sc_calendar_head">-->
-                                    <!--<div class="sc_period_range">-->
-                                        <!--Street cleaning: 8am-10pm-->
-                                    <!--</div>-->
-                                    <!--<div class="sc_date"><sup></sup> <span>20 September</span></div>-->
-                                <!--</div>-->
-                                <!--<div class="sc_calendar_body">-->
-                                    <!--<div class="sc_calendar_week_number">-->
-                                        <!--<div></div>-->
-                                        <!--<div>1</div>-->
-                                        <!--<div>2</div>-->
-                                        <!--<div>3</div>-->
-                                        <!--<div>4</div>-->
-                                        <!--<div>5</div>-->
-                                        <!--<div></div>-->
-                                    <!--</div>-->
-                                    <!--<div class="sc_calendar">-->
-                                        <!--<div class="days">-->
-                                            <!--<div>Su</div>-->
-                                            <!--<div>Mo</div>-->
-                                            <!--<div>Tu</div>-->
-                                            <!--<div>We</div>-->
-                                            <!--<div>Th</div>-->
-                                            <!--<div>Fr</div>-->
-                                            <!--<div>Sa</div>-->
-                                        <!--</div>-->
-                                        <!--<div class="days_numbers">-->
-                                            <!--<div class="prev_month"><span>29</span></div>-->
-                                            <!--<div class="prev_month"><span>30</span></div>-->
-                                            <!--<div class="prev_month"><span>31</span></div>-->
-                                            <!--<div><span>1</span></div>-->
-                                            <!--<div><span>2</span></div>-->
-                                            <!--<div class="sc_yes" data-tooltip="Street cleaning: 8am-10pm"><span>3</span></div>-->
-                                            <!--<div><span>4</span></div>-->
 
-                                            <!--<div><span>5</span></div>-->
-                                            <!--<div><span>6</span></div>-->
-                                            <!--<div><span>7</span></div>-->
-                                            <!--<div><span>8</span></div>-->
-                                            <!--<div><span>9</span></div>-->
-                                            <!--<div><span>10</span></div>-->
-                                            <!--<div><span>11</span></div>-->
-
-                                            <!--<div><span>12</span></div>-->
-                                            <!--<div><span>13</span></div>-->
-                                            <!--<div><span>14</span></div>-->
-                                            <!--<div><span>15</span></div>-->
-                                            <!--<div><span>16</span></div>-->
-                                            <!--<div class="sc_yes" data-tooltip="Street cleaning: 9am-10pm"><span>17</span></div>-->
-                                            <!--<div><span>18</span></div>-->
-
-                                            <!--<div><span>19</span></div>-->
-                                            <!--<div><span>20</span></div>-->
-                                            <!--<div><span>21</span></div>-->
-                                            <!--<div><span>22</span></div>-->
-                                            <!--<div><span>23</span></div>-->
-                                            <!--<div><span>24</span></div>-->
-                                            <!--<div><span>25</span></div>-->
-
-                                            <!--<div><span>26</span></div>-->
-                                            <!--<div class="sc_today" data-tooltip="today"><span>27</span></div>-->
-                                            <!--<div><span>28</span></div>-->
-                                            <!--<div><span>29</span></div>-->
-                                            <!--<div><span>30</span></div>-->
-                                            <!--<div class="next_month"><span>1</span></div>-->
-                                            <!--<div class="next_month"><span>2</span></div>-->
-
-                                            <!--<div class="next_month"><span>3</span></div>-->
-                                            <!--<div class="next_month"><span>4</span></div>-->
-                                            <!--<div class="next_month"><span>5</span></div>-->
-                                            <!--<div class="next_month"><span>6</span></div>-->
-                                            <!--<div class="next_month"><span>7</span></div>-->
-                                            <!--<div class="next_month"><span>8</span></div>-->
-                                            <!--<div class="next_month"><span>9</span></div>-->
-                                        <!--</div>-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<div class="sc_calendar_footer">-->
-                                    <!--<div class="sc_calendar_legend">Street cleaning</div>-->
-                                <!--</div>-->
-                            <!--</ul>-->
-                            <!--&lt;!&ndash; schedule content end &ndash;&gt;-->
-                            <!--<div class="pib_help">-->
-                                <!--<div>-->
-                                    <!--Displays next street cleaning date and time. See below for monthly street sweeping schedule. Set alerts to be notified ahead of next street cleaning event.-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="pib_tow_away">-->
-                            <!--<div class="pib_icn high"></div>-->
-                            <!--<div class="pib_data">-->
-                                    <!--<span>-->
-                                        <!--Next Tow Away at 11:00am 11/10/2016.-->
-                                    <!--</span>-->
-                            <!--</div>-->
-                            <!--<div class="pib_help">-->
-                                <!--<div>-->
-                                    <!--Displays known regularly scheduled tow-away zones.-->
-
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="pib_parking_time_limit">-->
-                            <!--<div class="pib_icn medium"></div>-->
-                            <!--<div class="pib_data">-->
-                                    <!--<span>-->
-                                        <!--Maximum parking 4h.-->
-                                    <!--</span>-->
-                            <!--</div>-->
-                            <!--<div class="pib_help">-->
-                                <!--<div>-->
-                                    <!--Displays known regularly scheduled tow-away zones.-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--<div class="pib_blocks_group hide">-->
-                        <!--<div class="pib_no_parking">-->
-                            <!--<div class="pib_icn high"></div>-->
-                            <!--<div class="pib_data">-->
-                                    <!--<span>-->
-                                        <!--No parking any time zone-->
-                                    <!--</span>-->
-                            <!--</div>-->
-                            <!--<div class="pib_help">-->
-                                <!--<div>-->
-                                    <!--No parking any time-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</li>-->
-            <!--<li class="tab_setup_alert">-->
-                <!--<div class="tab_unlogged hide">-->
-                    <!--<a href="#">Log In</a> or <a href="#">Sign Uo</a> to set up alert-->
-                <!--</div>-->
-                <!--<div class="setup_alert_content">-->
-                    <!--<form class="form_style_1 setup_alerts_form" action="">-->
-                        <!--<div>-->
-                            <!--<div class="alert_on_email">-->
-                                <!--<div class="custom_select_container">-->
-                                    <!--<select name="date" id="alert_email_time">-->
-                                        <!--<option value="48h">48h</option>-->
-                                        <!--<option value="24h">24h</option>-->
-                                        <!--<option value="12h" selected>12h</option>-->
-                                        <!--<option value="11h">11h</option>-->
-                                        <!--<option value="10h">10h</option>-->
-                                        <!--<option value="9h">9h</option>-->
-                                        <!--<option value="8h">8h</option>-->
-                                        <!--<option value="7h">7h</option>-->
-                                        <!--<option value="6h">6h</option>-->
-                                        <!--<option value="5h">5h</option>-->
-                                        <!--<option value="4h">4h</option>-->
-                                        <!--<option value="3h">3h</option>-->
-                                        <!--<option value="2h">2h</option>-->
-                                        <!--<option value="1h">1h</option>-->
-                                        <!--<option value="off">off</option>-->
-                                    <!--</select>-->
-                                <!--</div>-->
-                                <!--<div class="alert_type_label">-->
-                                    <!--username@email.com-->
-                                <!--</div>-->
-                            <!--</div>-->
-
-                            <!--<div class="alert_on_phone hide">-->
-                                <!--<div class="custom_select_container">-->
-                                    <!--<select name="time" id="alert_phone_time">-->
-                                        <!--<option value="48h">48h</option>-->
-                                        <!--<option value="24h">24h</option>-->
-                                        <!--<option value="12h" selected>12h</option>-->
-                                        <!--<option value="11h">11h</option>-->
-                                        <!--<option value="10h">10h</option>-->
-                                        <!--<option value="9h">9h</option>-->
-                                        <!--<option value="8h">8h</option>-->
-                                        <!--<option value="7h">7h</option>-->
-                                        <!--<option value="6h">6h</option>-->
-                                        <!--<option value="5h">5h</option>-->
-                                        <!--<option value="4h">4h</option>-->
-                                        <!--<option value="3h">3h</option>-->
-                                        <!--<option value="2h">2h</option>-->
-                                        <!--<option value="1h">1h</option>-->
-                                        <!--<option value="off">off</option>-->
-                                    <!--</select>-->
-                                <!--</div>-->
-                                <!--<div class="alert_type_label">-->
-                                    <!--1-855-557-5100-->
-                                <!--</div>-->
-                            <!--</div>-->
-
-                            <!--<div class="not_phone">-->
-                                <!--<a href="/userpreferences#phone" target="_blank">Add phone</a>-->
-                                <!--<div class="pib_help">-->
-                                    <!--<div>-->
-                                        <!--Add phone number to get text messages.-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div>-->
-                            <!--<button>-->
-                                <!--Submit-->
-                            <!--</button>-->
-                        <!--</div>-->
-                        <!--<hr />-->
-                        <!--<div class="ta_c popup_footer_box user_preferences_link">-->
-                            <!--<a href="#" title="User preferences" >-->
-                                <!--User preferences-->
-                            <!--</a>-->
-                        <!--</div>-->
-                    <!--</form>-->
-                <!--</div>-->
-            <!--</li>-->
-        <!--</ul>-->
-    <!--</div>-->
 </div>
 
 <!-- ======================== TESTER ========================== -->

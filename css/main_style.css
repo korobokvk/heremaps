@@ -15,9 +15,82 @@
 }
 #panel {
     position:absolute;
-    top: 150px;
+    top: 1500px;
     width:49%;
-    /*left:51%;*/
+    left:51%;
     height:100%;
     background:inherit;
+}
+#hrFrom, #hrTo {
+
+    margin-bottom: 15px;
+    text-align: left;
+    margin-left: 0;
+    visibility: visible;
+    width: 80%;
+    height: 1px;
+    background-color: #547491;
+    opacity: 0.7;
+}
+#fromBlock, #toBlock {
+    margin-left: 5%;
+}
+#from, #to {
+    margin-top: 5px;
+    font-size: 135%;
+}
+#walkinBlock {
+    background-color: #e2e3e7;
+    padding-top: 10px;
+    padding-left: 20px;
+    height: 40px;
+}
+#walkingRoutes {
+    display: block;
+    text-align: left;
+    font-size: 135%;
+    width: 100%;
+
+}
+.hicn_15 {
+    background: url(../img/img_route_walk.svg) no-repeat top left;
+    background-size: contain;
+    height: 35px;
+    width: 35px;
+    display: inline-block;
+    position: absolute;
+}
+#altBlock {
+    padding-left: 20px;
+    width: 100%;
+    height: 65px;
+}
+#hrAlt {
+    margin-bottom: 15px;
+    display: inline-block;
+    text-align: left;
+    margin-left: 0;
+    visibility: visible;
+    width: 80%;
+    height: 1px;
+    background-color: #547491;
+    opacity: 0.7;
+    line-height: 50px;
+}
+.altRoute{
+    display: inline-block;
+    font-style: italic;
+    font-size: 95%;
+    margin-left: 40px;
+}
+.altRouteH1 {
+    display: block;
+    text-align: left;
+    font-size: 125%;
+    width: 100%;
+    margin-left: 40px;
+}
+#altRouteBlock {
+    margin-top: 5px;
+    margin-bottom: 10px;
 }
