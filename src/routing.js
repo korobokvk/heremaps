@@ -26,7 +26,7 @@ function calculateRouteFromAtoB (platform, waypoint1) {
  */
 function onSuccess(result) {
     var route = result.response.route;
-    console.log(result);
+
 
 
     /*
@@ -35,13 +35,6 @@ function onSuccess(result) {
      * in the functions below:
      */
     addRouteShapeToMap(route);
-
-
-
-
-
-
-    // ... etc.
 
 }
 
@@ -78,36 +71,34 @@ function openBubble(position, text){
  */
 var poly;
 function addRouteShapeToMap(routing){
+    var polyline;
     var route = routing;
-    console.log(route.length);
     var strip = new H.geo.Strip();
     var routeShape;
     for(var i = 0; i < route.length; i++) {
-
         addSummaryToPanel(route[i].summary);
         addManueversToPanel(route[i]);
         addWaypointsToPanel(route[i].waypoint);
         routeShape = route[i].shape;
         routeShape.forEach(function(point) {
+
             var parts = point.split(',');
-            strip.pushLatLngAlt(parts[0], parts[1]);
+            strip.pushPoint({lat: parts[0], lng: parts[1]});
+            console.log(strip)
         });
 
     }
-
-
-    var polyline = new H.map.Polyline(strip, {
+    polyline = new H.map.Polyline(strip, {
         style: {
             lineWidth: 4,
             strokeColor: 'rgba(0, 128, 255, 0.7)'
         }
     });
-    // Add the polyline to the map
     map.addObject(polyline);
-
-    // And zoom to its bounding rectangle
     map.setViewBounds(polyline.getBounds(), true);
-   poly = polyline;
+    poly = polyline;
+    console.log(strip); 
+
 }
 function removePolyLine() {
     map.removeObject(poly);
