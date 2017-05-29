@@ -18,6 +18,22 @@ function calculateRouteFromAtoB (platform, waypoint1) {
         onError
     );
 }
+
+function reverseGeocode(platform, waypoints, callback) {
+    var geocoder = platform.getGeocodingService(),
+        parameters = {
+            prox: waypoints,
+            mode: 'retrieveAddresses',
+            maxresults: '1'
+            };
+
+    geocoder.reverseGeocode(parameters,
+        function (result) {
+            callback.call(result.Response.View["0"].Result["0"].Location.Address.Label);
+        }, function (error) {
+            alert(error);
+        });
+}
 /**
  * This function will be called once the Routing REST API provides a response
  * @param  {Object} result          A JSONP object representing the calculated route
@@ -26,29 +42,9 @@ function calculateRouteFromAtoB (platform, waypoint1) {
  */
 function onSuccess(result) {
     var route = result.response.route;
-    console.log(result);
-
-
-    /*
-     * The styling of the route response on the map is entirely under the developer's control.
-     * A representitive styling can be found the full JS + HTML code of this example
-     * in the functions below:
-     */
     addRouteShapeToMap(route);
-
-
-
-
-
-
-    // ... etc.
-
 }
 
-/**
- * This function will be called if a communication error occurs during the JSON-P request
- * @param  {Object} error  The error message received.
- */
 function onError(error) {
     alert('Ooops!');
 }
@@ -72,30 +68,41 @@ function openBubble(position, text){
 }
 
 
-/**
- * Creates a H.map.Polyline from the shape of the route and adds it to the map.
- * @param {Object} route A route as received from the H.service.RoutingService
- */
-var poly;
-function addRouteShapeToMap(routing){
-    var route = routing;
-    console.log(route.length);
+//Calculating routes
+var poly,
+    poly1;
+function addRouteShapeToMap(route){
     var strip = new H.geo.Strip();
-    var routeShape;
-    for(var i = 0; i < route.length; i++) {
+    var stripAlt = new H.geo.Strip();
+    //Ading routes to panel
+        addSummaryToPanel(route[0].summary);
+        addManueversToPanel(route[0]);
+        addWaypointsToPanel(route);
 
-        addSummaryToPanel(route[i].summary);
-        addManueversToPanel(route[i]);
-        addWaypointsToPanel(route[i].waypoint);
-        routeShape = route[i].shape;
+    //Adding main polyline to maps and alternatives rotes
+    //Main routes
+        var routeShape = route[0].shape;
+        console.log(route[0].shape);
         routeShape.forEach(function(point) {
-            var parts = point.split(',');
-            strip.pushLatLngAlt(parts[0], parts[1]);
+        var parts = point.split(',');
+        strip.pushLatLngAlt(parts[0], parts[1]);
+    });
+    //Alternative routes
+        var routeShapeAlt = route[1].shape;
+        routeShapeAlt.forEach(function(point) {
+            var partsAlt = point.split(',');
+            stripAlt.pushLatLngAlt(partsAlt[0], partsAlt[1]);
+
         });
 
-    }
 
-
+    //Visualisation polyline
+    var polylineAlt = new H.map.Polyline(stripAlt, {
+        style: {
+            lineWidth: 4,
+            strokeColor: 'rgba(0, 128, 255, 0.5)'
+        }
+    });
     var polyline = new H.map.Polyline(strip, {
         style: {
             lineWidth: 4,
@@ -104,13 +111,17 @@ function addRouteShapeToMap(routing){
     });
     // Add the polyline to the map
     map.addObject(polyline);
+    map.addObject(polylineAlt);
 
     // And zoom to its bounding rectangle
     map.setViewBounds(polyline.getBounds(), true);
-   poly = polyline;
+   poly = polyline,
+       poly1 = polylineAlt;
 }
+//Removing polyline by second tap on map, this function called in get_coords.js module
 function removePolyLine() {
-    map.removeObject(poly);
+    map.removeObject(poly, poly1);
+    map.removeObject(poly1);
 }
 
 
@@ -118,25 +129,20 @@ function removePolyLine() {
  * Creates a series of H.map.Marker points from the route and adds them to the map.
  * @param {Object} route  A route as received from the H.service.RoutingService
  */
-function addWaypointsToPanel(waypoints){
+function addWaypointsToPanel(route){
 
     var fromElem = document.getElementById("from");
     var toElem = document.getElementById('to');
 
-    var nodeH3 = document.createElement('h3'),
-        waypointLabels = [],
-        i;
+    console.log(route[0].shape[0]);
+    reverseGeocode(platform, route[0].shape[0], function(){
+        fromElem.textContent = this;
+    });
 
+    reverseGeocode(platform, route[0].shape[route[0].shape.length-1], function() {
+        toElem.textContent = this;
+    });
 
-    for (i = 0;  i < waypoints.length; i += 1) {
-        waypointLabels.push(waypoints[i].label)
-    }
-
-    nodeH3.textContent = waypointLabels.join(' - ');
-    fromElem.textContent = waypointLabels[0];
-    toElem.textContent = waypointLabels[1];
-    routeInstructionsContainer.innerHTML = '';
-    routeInstructionsContainer.appendChild(nodeH3);
 }
 
 
