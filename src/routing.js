@@ -1,4 +1,4 @@
-var bubble;
+//Get basic information about routes, type of transport, alternative routes etc.
 function calculateRouteFromAtoB (platform, waypoint1) {
     var router = platform.getRoutingService(),
         routeRequestParams = {
@@ -18,7 +18,7 @@ function calculateRouteFromAtoB (platform, waypoint1) {
         onError
     );
 }
-
+//Geocod in to address
 function reverseGeocode(platform, waypoints, callback) {
     var geocoder = platform.getGeocodingService(),
         parameters = {
@@ -26,10 +26,19 @@ function reverseGeocode(platform, waypoints, callback) {
             mode: 'retrieveAddresses',
             maxresults: '1'
             };
-
+//ВКЛЮЧИТЬ МОЗГИ И ПОФИКСИТЬ ЭТУ ЖОПУ. ВЫНЕСТИ ПРОВЕРКИ В ФУНКЦИЮ КОТОРАЯ ВЫЗЫВАЕТ КОЛБЭК
     geocoder.reverseGeocode(parameters,
         function (result) {
-            callback.call(result.Response.View["0"].Result["0"].Location.Address.Label);
+            var addressStreet = result.Response.View["0"].Result["0"].Location.Address.Street;
+            var HouseNumber = result.Response.View["0"].Result["0"].Location.Address.HouseNumber;
+            //If address have no house number or streets address
+            if(typeof (addressStreet && HouseNumber) !== 'undefined')  {
+                callback.call(HouseNumber + ", " + addressStreet);
+            } else if((typeof (addressStreet && HouseNumber) === 'undefined') && result.Response.View["0"].Result["0"].Location.Address.District) {
+                callback.call(result.Response.View["0"].Result["0"].Location.Address.District)
+            } else {
+                callback.call(result.Response.View["0"].Result["0"].Location.Address.Label)
+            }
         }, function (error) {
             alert(error);
         });
@@ -43,15 +52,6 @@ function reverseGeocode(platform, waypoints, callback) {
 function onSuccess(result) {
     var route = result.response.route;
 
-
-
-
-    /*
-     * The styling of the route response on the map is entirely under the developer's control.
-     * A representitive styling can be found the full JS + HTML code of this example
-     * in the functions below:
-     */
-
     addRouteShapeToMap(route);
 
 }
@@ -60,25 +60,8 @@ function onError(error) {
     alert('Ooops!');
 }
 
-var mapContainer = document.getElementById('map'),
-    routeInstructionsContainer = document.getElementById('panel');
-
-function openBubble(position, text){
-    if(!bubble){
-        bubble =  new H.ui.InfoBubble(
-            position,
-            // The FO property holds the province name.
-            {content: text});
-        ui.addBubble(bubble);
-    } else {
-        bubble.setPosition(position);
-        bubble.setContent(text);
-        bubble.open();
-    }
-    console.log(bubble)
-}
-
-
+// var mapContainer = document.getElementById('map'),
+//     routeInstructionsContainer = document.getElementById('panel');
 
 /**
  * Creates a H.map.Polyline from the shape of the route and adds it to the map.
@@ -92,15 +75,14 @@ var poly,
 function addRouteShapeToMap(route){
     var strip = new H.geo.Strip();
     var stripAlt = new H.geo.Strip();
-    //Ading routes to panel
-        addSummaryToPanel(route[0].summary);
+    //Adding routes to panel
+        addSummaryToPanel(route);
         addManueversToPanel(route[0]);
         addWaypointsToPanel(route);
 
     //Adding main polyline to maps and alternatives rotes
     //Main routes
         var routeShape = route[0].shape;
-        console.log(route[0].shape);
         routeShape.forEach(function(point) {
         var parts = point.split(',');
         strip.pushLatLngAlt(parts[0], parts[1]);
@@ -159,8 +141,7 @@ function addWaypointsToPanel(route){
     var fromElem = document.getElementById("from");
     var toElem = document.getElementById('to');
 
-    console.log(route[0].shape[0]);
-    reverseGeocode(platform, route[0].shape[0], function(){
+   reverseGeocode(platform, route[0].shape[0], function(){
         fromElem.textContent = this;
     });
 
@@ -177,18 +158,24 @@ function addWaypointsToPanel(route){
  * Creates a series of H.map.Marker points from the route and adds them to the map.
  * @param {Object} route  A route as received from the H.service.RoutingService
  */
-function addSummaryToPanel(summary){
-    var summaryDiv = document.createElement('div'),
+function addSummaryToPanel(route){
+    console.log(route);
+    var getVia = document.getElementById('viaRoud'),
+        contentVia = '',
+        locals = route[0].leg["0"].maneuver[1].position.latitude + '' + route[0].leg["0"].maneuver[1].position.longitude;
+    // reverseGeocode(platform, locals, function(){
+    //         contentVia = this;
+    //     });
+    var summaryDiv = document.getElementById('distance'),
+        distance = route[0].summary.distance / 1000;
         content = '';
-    content += '<b>Total distance</b>: ' + summary.distance  + 'm. <br/>';
-    content += '<b>Travel Time</b>: ' + summary.travelTime.toMMSS() + ' (in current traffic)';
 
-
-    summaryDiv.style.fontSize = 'small';
-    summaryDiv.style.marginLeft ='5%';
-    summaryDiv.style.marginRight ='5%';
+    content += '<b>' + distance.toFixed(1)  + 'km. <hr id="hrDist">';
+    content += 'arrive: ' + route[0].summary.travelTime.toMMSS() + '</b>';
     summaryDiv.innerHTML = content;
-    routeInstructionsContainer.appendChild(summaryDiv);
+
+
+
 }
 
 /**
@@ -198,7 +185,7 @@ function addSummaryToPanel(summary){
 function addManueversToPanel(route){
 
 
-
+console.log(route.leg)
     var nodeOL = document.createElement('ol'),
         i,
         j;
@@ -227,7 +214,7 @@ function addManueversToPanel(route){
         }
     }
 
-    routeInstructionsContainer.appendChild(nodeOL);
+    document.getElementById('panel').appendChild(nodeOL);
 }
 
 
