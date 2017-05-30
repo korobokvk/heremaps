@@ -66,7 +66,7 @@
     height: 65px;
 }
 #hrAlt {
-    margin-bottom: 15px;
+    margin-bottom: 5px;
     display: inline-block;
     text-align: left;
     margin-left: 0;
@@ -99,7 +99,34 @@
     opacity: 1;
     display: inline;
     width: 50% !important;
-    height: 2px;
+    height: 20px !important;
     margin: 3px;
-
 }
+.hicn_16 {
+    background: url(../img/img_route_walk.svg) no-repeat top left;
+    background-size: contain;
+    height: 35px;
+    width: 35px;
+    display: inline-block;
+    position: absolute;
+    left: 3px;
+    bottom: 0px;
+}
+mainwalk, alltwalk {
+    display: inline;
+}
+.btn_search:hover {
+    right:0px;
+    background: url(../img/btn_route_vis_a.svg) no-repeat top left;
+    background-size: contain;
+}
+.dropmenu {
+
+    position: absolute;
+    color: #547491;
+    background-color: #34495e;
+    width: 100%;
+    height: auto;
+}
+
+

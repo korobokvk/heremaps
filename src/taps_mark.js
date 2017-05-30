@@ -1,4 +1,4 @@
-var svgMarkup = `<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="90px" height="90px" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+var svgMarkup = `<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="40px" height="40px" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
 viewBox="0 0 662 662"
  xmlns:xlink="http://www.w3.org/1999/xlink">
  <defs>

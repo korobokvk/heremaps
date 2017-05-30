@@ -29,16 +29,7 @@ function reverseGeocode(platform, waypoints, callback) {
 //ВКЛЮЧИТЬ МОЗГИ И ПОФИКСИТЬ ЭТУ ЖОПУ. ВЫНЕСТИ ПРОВЕРКИ В ФУНКЦИЮ КОТОРАЯ ВЫЗЫВАЕТ КОЛБЭК
     geocoder.reverseGeocode(parameters,
         function (result) {
-            var addressStreet = result.Response.View["0"].Result["0"].Location.Address.Street;
-            var HouseNumber = result.Response.View["0"].Result["0"].Location.Address.HouseNumber;
-            //If address have no house number or streets address
-            if(typeof (addressStreet && HouseNumber) !== 'undefined')  {
-                callback.call(HouseNumber + ", " + addressStreet);
-            } else if((typeof (addressStreet && HouseNumber) === 'undefined') && result.Response.View["0"].Result["0"].Location.Address.District) {
-                callback.call(result.Response.View["0"].Result["0"].Location.Address.District)
-            } else {
-                callback.call(result.Response.View["0"].Result["0"].Location.Address.Label)
-            }
+        callback.call(result);
         }, function (error) {
             alert(error);
         });
@@ -78,6 +69,7 @@ function addRouteShapeToMap(route){
     //Adding routes to panel
         addSummaryToPanel(route);
         addManueversToPanel(route[0]);
+
         addWaypointsToPanel(route);
 
     //Adding main polyline to maps and alternatives rotes
@@ -103,32 +95,44 @@ function addRouteShapeToMap(route){
             strokeColor: 'rgba(0, 128, 255, 0.5)'
         }
     });
-    var polyline = new H.map.Polyline(strip, {
-
+    var Polyline = new H.map.Polyline(strip, {
         style: {
             lineWidth: 4,
             strokeColor: 'rgba(0, 128, 255, 0.7)'
-        }
+        },
+        visibility: true
     });
-    map.addObject(polyline);
+    map.addObject(Polyline);
     map.addObject(polylineAlt);
 
-    map.setViewBounds(polyline.getBounds(), true);
 
 
 
 
+    poly = Polyline,
+    poly1 = polylineAlt;
 
-    // And zoom to its bounding rectangle
-    map.setViewBounds(polyline.getBounds(), true);
-   poly = polyline,
-       poly1 = polylineAlt;
+    //Click bouonds polyline
+    $('.mainwalk').click(function(e){
+        map.removeObject(poly);
+        map.setViewBounds(poly1.getBounds(), true);
+        e.stopPropagation();
+    });
+
+    $('.altwalk').click(function(e){
+        map.removeObject(poly1);
+        map.setViewBounds(poly.getBounds(), true);
+        e.stopPropagation();
+    });
+
 
 }
+
+
 //Removing polyline by second tap on map, this function called in get_coords.js module
-function removePolyLine() {
-    map.removeObject(poly, poly1);
-    map.removeObject(poly1);
+function removePolyLine(poly) {
+    map.removeObject(poly);
+
 }
 
 
@@ -141,12 +145,42 @@ function addWaypointsToPanel(route){
     var fromElem = document.getElementById("from");
     var toElem = document.getElementById('to');
 
-   reverseGeocode(platform, route[0].shape[0], function(){
-        fromElem.textContent = this;
-    });
+    var GetFullAddress = {};
 
-    reverseGeocode(platform, route[0].shape[route[0].shape.length-1], function() {
-        toElem.textContent = this;
+    // //If address have no house number or streets address
+   reverseGeocode(platform, route[0].shape[0], function(){
+
+       GetFullAddress.addressStreet = this.Response.View["0"].Result["0"].Location.Address.Street;
+       GetFullAddress.HouseNumber = this.Response.View["0"].Result["0"].Location.Address.HouseNumber;
+
+
+       if(typeof (GetFullAddress.addressStreet && GetFullAddress.HouseNumber) !== 'undefined')  {
+           fromElem.textContent = GetFullAddress.HouseNumber + ", " + GetFullAddress.addressStreet;
+       } else if((typeof (GetFullAddress.addressStreet && GetFullAddress.HouseNumber) === 'undefined') && this.Response.View["0"].Result["0"].Location.Address.District) {
+           fromElem.textContent = this.Response.View["0"].Result["0"].Location.Address.District
+       } else {
+           fromElem.textContent = this.Response.View["0"].Result["0"].Location.Address.Label
+       }
+   });
+
+   reverseGeocode(platform, route[0].shape[route[0].shape.length-1], function() {
+
+        GetFullAddress.addressStreet = this.Response.View["0"].Result["0"].Location.Address.Street;
+        GetFullAddress.HouseNumber = this.Response.View["0"].Result["0"].Location.Address.HouseNumber;
+
+
+        if(typeof (GetFullAddress.addressStreet && GetFullAddress.HouseNumber) !== 'undefined')  {
+
+            toElem.textContent = GetFullAddress.HouseNumber + ", " + GetFullAddress.addressStreet;
+
+        } else if((typeof (GetFullAddress.addressStreet && GetFullAddress.HouseNumber) === 'undefined') && this.Response.View["0"].Result["0"].Location.Address.District) {
+
+            toElem.textContent = this.Response.View["0"].Result["0"].Location.Address.District
+
+        } else {
+
+            toElem.textContent = this.Response.View["0"].Result["0"].Location.Address.Label
+        }
     });
 
 }
@@ -159,20 +193,40 @@ function addWaypointsToPanel(route){
  * @param {Object} route  A route as received from the H.service.RoutingService
  */
 function addSummaryToPanel(route){
-    console.log(route);
     var getVia = document.getElementById('viaRoud'),
-        contentVia = '',
-        locals = route[0].leg["0"].maneuver[1].position.latitude + '' + route[0].leg["0"].maneuver[1].position.longitude;
-    // reverseGeocode(platform, locals, function(){
-    //         contentVia = this;
-    //     });
+        getViaAlt = document.getElementById('viaRoudAlt'),
+
+        getDifferentPosition = {};
+
+    for(var i = 0; i < route[0].leg["0"].maneuver.length; i++) {
+        if((route[0].leg["0"].maneuver[i].position.latitude + ',' + route[0].leg["0"].maneuver[i].position.longitude) !== (route[1].leg["0"].maneuver[i].position.latitude + ',' + route[0].leg["0"].maneuver[i].position.longitude)) {
+            getDifferentPosition.positionMain = route[0].leg["0"].maneuver[i].position.latitude + ',' + route[0].leg["0"].maneuver[i].position.longitude;
+            getDifferentPosition.positionAlt = route[1].leg["0"].maneuver[i].position.latitude + ',' + route[0].leg["0"].maneuver[i].position.longitude;
+            break
+        }
+    }
+
+    reverseGeocode(platform, getDifferentPosition.positionMain, function(){
+        getVia.textContent = 'via ' + this.Response.View["0"].Result["0"].Location.Address.Street;
+    });
+
+    reverseGeocode(platform, getDifferentPosition.positionAlt, function(){
+        getViaAlt.textContent = 'via ' + this.Response.View["0"].Result["0"].Location.Address.Street;
+    });
+
     var summaryDiv = document.getElementById('distance'),
-        distance = route[0].summary.distance / 1000;
+        summaryDivAlt = document.getElementById('distanceAlt'),
+        distance = route[0].summary.distance / 1000,
+        distanceAlt = route[1].summary.distance / 1000,
+        altcontent = '',
         content = '';
 
     content += '<b>' + distance.toFixed(1)  + 'km. <hr id="hrDist">';
     content += 'arrive: ' + route[0].summary.travelTime.toMMSS() + '</b>';
+    altcontent += '<b>' + distanceAlt.toFixed(1)  + 'km. <hr id="hrDist">';
+    altcontent += 'arrive: ' + route[1].summary.travelTime.toMMSS() + '</b>';
     summaryDiv.innerHTML = content;
+    summaryDivAlt.innerHTML = altcontent;
 
 
 
@@ -184,8 +238,6 @@ function addSummaryToPanel(route){
  */
 function addManueversToPanel(route){
 
-
-console.log(route.leg)
     var nodeOL = document.createElement('ol'),
         i,
         j;
@@ -219,7 +271,14 @@ console.log(route.leg)
 
 
 Number.prototype.toMMSS = function () {
-    return  Math.floor(this / 60)  +' minutes '+ (this % 60)  + ' seconds.';
+    var date = new Date();
+    var options = {
+        hour: 'numeric',
+        minute: 'numeric'
+    };
+    date.setMinutes(date.getMinutes() + Math.floor(this / 60));
+    return date.toLocaleString("en-US", options) ;
+
 };
 
 

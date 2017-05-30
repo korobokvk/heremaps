@@ -9,7 +9,9 @@ function setUpClickListener(map) {
             evt.currentPointer.viewportY);
         var waypoint0 = coord.lat.toFixed(4) + ',' + coord.lng.toFixed(4);
         if(tic > 0) {
+            evt.preventDefault()
             removeMarkers();
+
             removePolyLine();
             tic = 0
         } else {
@@ -21,28 +23,6 @@ function setUpClickListener(map) {
     });
 }
 
-function removeFromMap(route){
-    var strip = new H.geo.Strip(),
-        routeShape = route.shape,
-        polyline;
-
-    routeShape.forEach(function(point) {
-        var parts = point.split(',');
-        strip.pushLatLngAlt(parts[0], parts[1]);
-    });
-
-    polyline = new H.map.Polyline(strip, {
-        style: {
-            lineWidth: 4,
-            strokeColor: 'rgba(0, 128, 255, 0.7)'
-        }
-    });
-    // Add the polyline to the map
-    map.removeObject(polyline);
-
-    // And zoom to its bounding rectangle
-    map.setViewBounds(polyline.getBounds(), true);
-}
 setUpClickListener(map);
 
 
