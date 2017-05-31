@@ -4,6 +4,7 @@
     <meta name="viewport" content="initial-scale=1.0, width=device-width, height=device-height" />
     <link rel="stylesheet" type="text/css" href="https://js.cit.api.here.com/v3/3.0/mapsjs-ui.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script type="text/javascript" src="https://js.cit.api.here.com/v3/3.0/mapsjs-core.js"></script>
     <script type="text/javascript" src="https://js.cit.api.here.com/v3/3.0/mapsjs-service.js"></script>
     <script type="text/javascript" src="https://js.cit.api.here.com/v3/3.0/mapsjs-ui.js"></script>
@@ -116,27 +117,27 @@
 </div>
 
 <!-- ======================== TESTER ========================== -->
-<div class="tester">
-    <div>
-        <div class="hn4">
-            <div>Pop-up Tester</div>
-        </div>
-        <div class="hn6">
-            <div>Pop-ups</div>
-        </div>
-        <span class="popup_thnx_alert_added">Alert Added</span>
-        <span class="popup_parking_info">Parking info</span>
-        <span class="popup_address_not_found">Address not found</span>
+<!--<div class="tester">-->
+    <!--<div>-->
+        <!--<div class="hn4">-->
+            <!--<div>Pop-up Tester</div>-->
+        <!--</div>-->
+        <!--<div class="hn6">-->
+            <!--<div>Pop-ups</div>-->
+        <!--</div>-->
+        <!--<span class="popup_thnx_alert_added">Alert Added</span>-->
+        <!--<span class="popup_parking_info">Parking info</span>-->
+        <!--<span class="popup_address_not_found">Address not found</span>-->
 
-        <div class="hn6">
-            <div>Marker pop-ups</div>
-        </div>
-        <span class="popup_on_marker">
-                popup_on_marker
-            </span>
+        <!--<div class="hn6">-->
+            <!--<div>Marker pop-ups</div>-->
+        <!--</div>-->
+        <!--<span class="popup_on_marker">-->
+                <!--popup_on_marker-->
+            <!--</span>-->
 
-    </div>
-</div>
+    <!--</div>-->
+<!--</div>-->
 <!-- =====================HEADER====================== -->
 <header class="main_header">
     <div class="logo">
@@ -153,9 +154,9 @@
                     <input class="inp_search" type="search" placeholder="Search by address" />
                     <button class="btn_search" type="submit"></button>
                 </div>
-                <div  class="dropmenu">
-                    <span class="addressesAuroCom"></span>
-                </div>
+                    <div id="display" class="clear">
+                        <select size="10" class="addressesAuroCom clear"></select>
+                    </div>
             </div>
         </form>
 

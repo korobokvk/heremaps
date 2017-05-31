@@ -63,6 +63,7 @@ function onError(error) {
 //Calculating routes
 var poly,
     poly1;
+
 function addRouteShapeToMap(route){
     var strip = new H.geo.Strip();
     var stripAlt = new H.geo.Strip();
@@ -102,26 +103,26 @@ function addRouteShapeToMap(route){
         },
         visibility: true
     });
-    map.addObject(Polyline);
-    map.addObject(polylineAlt);
-
-
-
-
-
     poly = Polyline,
-    poly1 = polylineAlt;
+        poly1 = polylineAlt;
+    map.addObject(poly);
+    map.addObject(poly1);
 
     //Click bouonds polyline
     $('.mainwalk').click(function(e){
         map.removeObject(poly);
+        map.addObject(poly1);
         map.setViewBounds(poly1.getBounds(), true);
+        $('.inp_search').val($("#to").text());
         e.stopPropagation();
     });
 
     $('.altwalk').click(function(e){
+
         map.removeObject(poly1);
+        map.addObject(poly);
         map.setViewBounds(poly.getBounds(), true);
+        $('.inp_search').val($("#to").text());
         e.stopPropagation();
     });
 
@@ -130,8 +131,9 @@ function addRouteShapeToMap(route){
 
 
 //Removing polyline by second tap on map, this function called in get_coords.js module
-function removePolyLine(poly) {
+function removePolyLine() {
     map.removeObject(poly);
+    map.removeObject(poly1);
 
 }
 

@@ -42,14 +42,52 @@ function autoCompleteListener(textBox, event) {
  *  This is the event listener which processes the XMLHttpRequest response returned from the server.
  */
 function onAutoCompleteSuccess() {
-    /*
-     * The styling of the suggestions response on the map is entirely under the developer's control.
-     * A representitive styling can be found the full JS + HTML code of this example
-     * in the functions below:
-     */
-        var div = document.getElementsByClassName('addressesAuroCom');
-        div.innerHTML = this.response.suggestions[1].label;
 
+for(var element of this.response.suggestions) {
+    var value = element["label"];
+
+    $("#display").removeClass('clear');
+    $('.addressesAuroCom').removeClass('clear').append(`<option id='spanArr' > ${value} </option>`);
+
+}
+
+$("option").click(function(e) {
+    var textAddress = $(this).text();
+    console.log(textAddress);
+    geocode(platform, textAddress);
+    $(".inp_search").val(textAddress);
+    $('.addressesAuroCom').addClass('clear');
+    $("#display").addClass('clear');
+
+});
+
+    function geocode(platform, textAddress) {
+        console.log(textAddress);
+        var geocoder = platform.getGeocodingService(),
+            geocodingParameters = {
+                searchText: textAddress,
+                jsonattributes : 1
+
+            };
+
+        geocoder.geocode(
+            geocodingParameters,
+            onSuccess,
+            onError
+        );
+    }
+    function onSuccess(result) {
+        $("#popup_on_marker").addClass("active");
+        var lat = result.response.view["0"].result["0"].location.displayPosition.latitude;
+        var lng = result.response.view["0"].result["0"].location.displayPosition.longitude;
+        var locations = lat.toFixed(4) + ',' + lng.toFixed(4);
+
+        console.log(locations);
+
+        calculateRouteFromAtoB(platform, locations);
+        orderMarkers(locations);
+
+    }
      // In this context, 'this' means the XMLHttpRequest itself.
 
 }

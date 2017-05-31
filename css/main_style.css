@@ -112,21 +112,50 @@
     left: 3px;
     bottom: 0px;
 }
-mainwalk, alltwalk {
-    display: inline;
-}
+/*mainwalk, alltwalk {*/
+    /*display: inline;*/
+/*}*/
 .btn_search:hover {
-    right:0px;
+    /*right:0px;*/
     background: url(../img/btn_route_vis_a.svg) no-repeat top left;
     background-size: contain;
 }
-.dropmenu {
-
+#display{
     position: absolute;
     color: #547491;
     background-color: #34495e;
     width: 100%;
     height: auto;
 }
+/*.addressesAuroCom {*/
+    /*position: absolute;*/
 
+    /*background-color: #34495e;*/
+    /*width: 100%;*/
+    /*height: auto;*/
+
+/*}*/
+
+/*#spanArr {*/
+    /*font-size: medium;*/
+    /*font-weight: 500;*/
+    /*background-color: #34495e;*/
+    /*width: 100%;*/
+
+/*}*/
+#spanArr:hover {
+    /*font-size: medium;*/
+    /*font-weight: 500;*/
+    background-color: rgba(46,203,114, 1);
+}
+mark {
+    background-color: #fff;
+}
+.clear {
+    visibility: hidden;
+}
+select {
+
+    height: auto;
+}
 

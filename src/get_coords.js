@@ -11,8 +11,9 @@ function setUpClickListener(map) {
         if(tic > 0) {
             evt.preventDefault()
             removeMarkers();
+            location.reload()
 
-            removePolyLine();
+            // removePolyLine();
             tic = 0
         } else {
             $("#popup_on_marker").addClass("active");
