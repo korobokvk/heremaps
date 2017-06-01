@@ -158,4 +158,74 @@ select {
 
     height: auto;
 }
-
+.btn_change_w {
+    display:inline-block;
+    width:30px;
+    height:30px;
+    position:absolute;
+    top:-2px;
+    right:-2px;
+    z-index:5
+}
+.btn_change_w:before{
+    content:"\e909";
+    font-family:xtreet_icns;
+    width:inherit;
+    height:inherit;
+    display:-webkit-box!important;
+    display:-ms-flexbox!important;
+    display:-webkit-flex!important;
+    display:flex!important;
+    -webkit-box-pack:center!important;
+    -ms-flex-pack:center!important;
+    -webkit-justify-content:center!important;
+    justify-content:center!important;
+    -webkit-box-align:center!important;
+    -ms-flex-align:center!important;
+    -webkit-align-items:center!important;
+    align-items:center!important;
+    font-size:18px;
+    color:#547491
+}
+.btn_change_w:hover:before{
+    color:#83a9c9;
+    cursor:pointer
+}
+.popup_body_routes{
+    line-height:16px;
+    height: auto;
+}
+#routesDetails {
+    padding: 5px;
+    border-bottom: 1px solid #e2e3e7;
+}
+#fromWalk {
+    height: 55px;
+    border-bottom: 1px solid #e2e3e7;
+}
+li {
+    border-bottom: 1px solid #e2e3e7;
+    height: 70px;
+}
+#routedetailsFrom {
+    font-size: small;
+}
+.hicn_20 {
+    background: url(../img/marker_route_start.svg) no-repeat top left;
+    background-size: contain;
+    height: 35px;
+    width: 35px;
+    display: inline-block;
+    position: absolute;
+    left: 5px;
+    top: 5px;
+}
+#routesBlock {
+    height: 250px;
+    overflow-x: scroll;
+}
+#fromRouteDetail {
+    display: inline-block;
+    margin-left: 50px;
+    margin-top: 15px;
+}

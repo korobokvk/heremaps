@@ -70,7 +70,10 @@ $(".popup_w .btn_close_w").click(function () {
     $(".tester span").removeClass("active"); // tester
 });
 
-
+$(".btn_change_w").click(function(){
+    $("#popup_route").removeClass('active');
+    $("#popup_on_marker").toggleClass("active")
+});
 // DON'T CLOSE POPUP IF SELECT FILE LOAD
 //===============================================================
 $("#file_8").focus(function () {
