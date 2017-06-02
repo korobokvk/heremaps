@@ -297,7 +297,9 @@ function addManueversToPanel(route){
             spanArrow.className = 'arrow '  + maneuver.action;
             spanInstruction.innerHTML = routesStr + "<br>" + routesDistance + " " +  '<hr>';
             travelTime.innerHTML = travelTimers;
+            travelTime.classList.add('timer');
             li.classList.add('routesDetailsLi');
+            //console.log($("ol.directions:last").addClass('sss'));
             li.style.paddingLeft = '10px';
             li.style.paddingRight = '10px';
             li.appendChild(spanArrow);
@@ -311,10 +313,13 @@ function addManueversToPanel(route){
     }
 
     document.getElementById('routesBlock').appendChild(nodeOL);
+    $('ol.directions li:last-child .timer').empty();
+    $('ol.directions li:last-child hr').detach();
+    $('ol.directions li:last-child span br').detach();
 }
 
 Number.prototype.toMMS = function () {
-    return  this >= 60 ? " " + Math.floor(this / 60)  + ' min': ' <1 min';
+    return  this >= 60 || this === 0 ? " " + Math.floor(this / 60)  + ' min': ' <1 min';
 };
 
 Number.prototype.toMMSS = function () {

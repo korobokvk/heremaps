@@ -240,6 +240,20 @@ select {
     height: 0px;
     margin-right: 3px;
 }
-.routesDetailsLi span {
+span.arrive {
+    background: url(../img/marker_route_end.svg) no-repeat top left !important;
+    background-size: contain;
+    height: 35px;
+    width: 35px;
+    /*position: absolute !important;*/
+    /*left: 5px;*/
+    top: 5px;
+}
+ol.directions li:last-child span+span{
+    display: inline;
 
+
+}
+ol.directions li:last-child .timer {
+    content: none;
 }
