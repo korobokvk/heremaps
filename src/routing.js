@@ -316,12 +316,22 @@ function addManueversToPanel(route){
     $('ol.directions li:last-child .timer').empty();
     $('ol.directions li:last-child hr').detach();
     $('ol.directions li:last-child span br').detach();
+    $('.localTimes').text(localeDate());
 }
 
 Number.prototype.toMMS = function () {
     return  this >= 60 || this === 0 ? " " + Math.floor(this / 60)  + ' min': ' <1 min';
 };
+ function localeDate() {
+    var date = new Date();
+    var options = {
+        hour: 'numeric',
+        minute: 'numeric'
+    };
 
+    return date.toLocaleString("en-US", options) ;
+}
+//DRY ADDING AFTER
 Number.prototype.toMMSS = function () {
     var date = new Date();
     var options = {

@@ -257,3 +257,12 @@ ol.directions li:last-child span+span{
 ol.directions li:last-child .timer {
     content: none;
 }
+
+.localTimes {
+    position: absolute;
+    left: 200px;
+    top: 15px;
+}
+/*.localTimes:after {*/
+    /*content: 'pm';*/
+/*}*/
