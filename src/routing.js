@@ -283,22 +283,27 @@ function addManueversToPanel(route){
         for (j = 0;  j < route.leg[i].maneuver.length; j += 1) {
             // Get the next maneuver.
             maneuver = route.leg[i].maneuver[j];
+            travelTimers = route.leg[i].maneuver[j].travelTime.toMMS();
+            console.log(maneuver.instruction.indexOf('<span class="distance-description">Go for'), '<span class="distance-description">Go for'.length);
 
             var li = document.createElement('li'),
                 spanArrow = document.createElement('span'),
                 spanInstruction = document.createElement('span'),
-                hr = document.createElement('hr');
+                travelTime = document.createElement('span');
 
-            hr.style.opacity = "0.3";
-            hr.style.visibility = 'visible';
-            hr.style.height = '1px';
+
+            var routesStr = maneuver.instruction.substring(0, maneuver.instruction.indexOf('<span class="distance-description">Go for'));
+            var routesDistance = maneuver.instruction.substring(maneuver.instruction.indexOf('<span class="length">'));
             spanArrow.className = 'arrow '  + maneuver.action;
-            spanInstruction.innerHTML = maneuver.instruction;
+            spanInstruction.innerHTML = routesStr + "<br>" + routesDistance + " " +  '<hr>';
+            travelTime.innerHTML = travelTimers;
+            li.classList.add('routesDetailsLi');
             li.style.paddingLeft = '10px';
             li.style.paddingRight = '10px';
             li.appendChild(spanArrow);
             li.appendChild(spanInstruction);
-            // nodeOL.appendChild(hr);
+            li.appendChild(travelTime);
+
 
             nodeOL.appendChild(li);
 
@@ -308,6 +313,9 @@ function addManueversToPanel(route){
     document.getElementById('routesBlock').appendChild(nodeOL);
 }
 
+Number.prototype.toMMS = function () {
+    return  this >= 60 ? " " + Math.floor(this / 60)  + ' min': ' <1 min';
+};
 
 Number.prototype.toMMSS = function () {
     var date = new Date();

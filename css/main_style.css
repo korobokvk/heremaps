@@ -203,7 +203,7 @@ select {
     height: 55px;
     border-bottom: 1px solid #e2e3e7;
 }
-li {
+.routesDetailsLi {
     border-bottom: 1px solid #e2e3e7;
     height: 70px;
 }
@@ -228,4 +228,18 @@ li {
     display: inline-block;
     margin-left: 50px;
     margin-top: 15px;
+}
+.length {
+    margin-left: 25px;
+    color: #2ecb72;
+}
+.routesDetailsLi hr {
+    visibility: visible;
+    opacity: 1;
+    display: inline;
+    height: 0px;
+    margin-right: 3px;
+}
+.routesDetailsLi span {
+
 }
